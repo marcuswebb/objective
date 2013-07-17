@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<div id="blah">
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+function person(id,firstname,lastname,age,eyecolor)
+{
+  this.id = id;
+	this.firstname = firstname;
+	this.lastname = lastname;
+	this.age = age;
+	this.eyecolor = eyecolor;
+
+	this.changeFirstname = changeFirstname;
+	function changeFirstname(name)
+	{
+	this.firstname = name;
+	}
+	// function inspectPerson() 
+	// {
+	// 	alert();
+	// 	for (x in person)
+	// 	  {
+	// 	  	alert(person[x]);
+	// 	  	// txt=txt + person[x];
+	// 	  }
+	// }
+}
+
+var myFather = new person("John","Doe",50,"blue");
+
+$(document).ready(function() {
+	$('#blah').html(myFather.firstname);
+	$('#blah').click(function() {
+		myFather.changeFirstname("Blah");
+		$(this).html(myFather.firstname);
+		// myFather.inspectPerson;
+	});	
+});
+
+</script>
+</body>
+</html>
