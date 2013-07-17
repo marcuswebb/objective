@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+
+* {margin:0;padding:0;box-sizing:border-box;}
+html { background:#ccc; }
+#blah 
+	{
+		position: absolute;
+		width: 64px;
+		height: 64px;
+		left: 50%;
+		top: 50%;
+		text-indent: -9999px;
+		/*background-color: lime;*/
+		background-image: url('http://weightinc.com/_/gmz/sprite-static.png');
+		background-position-x: right;
+	}
+	</style>
+</head>
+<body>
+	<div id="blah">
+		!
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="http://weightinc.com/_/_js/jquery.transit.min.js"></script>
+	<script>
+$(document).ready(function() {
+	// alert($('#blah').css("-webkit-transform"));
+	$('#blah')
+	.on('click', function() {
+		$(this)
+		.transition({
+			'x':'+=37%',
+			'y':'-=100px',
+			scale: 0.7,
+			// perspective: '100px',
+	  // 		rotate3d: '10,10,100,3deg',
+	  		// skewX: '10deg',
+	  		// skewY: '10deg'
+		}, 1500, function() {
+			$(this)
+			.transition({
+			'x':'+=17%',
+			'y':'+=100px',
+			scale: 1,
+		}, 1500);
+
+	});
+
+
+		// alert($('#blah').css('x'));
+
+	});
+});
+	</script>
+</body>
+</html>
+
