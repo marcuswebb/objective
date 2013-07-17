@@ -200,8 +200,13 @@ body
 	/* TEST MOBS TOUCH */
 
 	clickCount = 0;
-	$('#ui').click(function() {
-		clickCounter();
+	$('#ui').on('click', function() {
+		// clickCounter();
+		pause = true;
+		$('#ui').on('click', function() {
+			pause = false;
+		});
+
 	});
 	function clickCounter() {
 		allMobs[allMobs.length] = new mob(allMobs.length);
@@ -216,8 +221,9 @@ body
 	}
 
 var mobCount = 0;
+var pause = false;
 (function timerMobs(){
-   if (mobCount < allMobs.length) {
+   if (mobCount < allMobs.length && pause === false) {
 		var thisMob = allMobs[mobCount];
 		thisMob.changePosition(parseInt(windowWidth * Math.random()),parseInt(windowHeight * Math.random()));
 		mobCount++;
