@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style>
+.mob 
+	{
+		float:left;
+		width:50px;
+		height:50px;
+		margin-right:1px;
+		margin-bottom:1px;
+		background-color:gray;
+	}
+#ui 
+	{
+		position:absolute;
+		width:50px;
+		height:50px;
+		top:0;
+		right:0;
+		background:lime;
+	}
+#player 
+	{
+		background-color:#ccc;
+	}
+	</style>
+
+</head>
+<body>
+
+<div id="ui">
+	!
+</div>
+<div id="player">
+	<div id="mobs">
+	</div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+
+
+(function(){
+var balls = new Array();
+
+balls[0] = new ball(0);
+balls[1] = new ball(1);
+balls[2] = new ball(2);
+
+
+function ball(index)
+{
+    this.index = index;
+
+    this.draw = function() {
+        $('#mobs').append(index)
+    }
+}
+for (var i=0; i<balls.length; i++) {
+   balls[i].draw();
+}
+	$('#ui').click(function() { 
+		balls[1].draw();
+	});
+}());
+
+
+
+</script>
+</body>
+</html>
