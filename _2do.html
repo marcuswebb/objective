@@ -6,20 +6,83 @@
   <h1>
     2D0
   </h1>
+  <hr />
+
+  <h2>
+  	Data System
+  </h2>
   <pre>
+- Disable new turns :: Stop at the end of the current turn.
+- Force next turn on specific object
 - Make creation of object based on current object max count so that creating an object hits the appropraite id
-- Pause mid-turn
-- Disable new turns
-- Perspective method
-- Slow time
-- Zoom space
-- Generate bg methods
-- Multiple playspaces
-- Continuous load spaces
-- Exterior shot generator
-- Text Question / Answer basics
+- Square objects :: Transparent interaction layer triggers $.methods() triggers display layer update on next turn 
+- Slow time :: Time speed play space variable.
+- Data model for characters :: Arrays of arrays, function(array keys) return switch methods for general sub table properties based on generic type modified by current skill values.
+  </pre>
+  <hr />
+
+  <h2>
+  	Graphical Methods
+  </h2>
+  <pre>
+- Postion method :: The operating rules by which objects are located within a space. 
+- Perspective method :: A way to determine the view distance of the view, then translate the current Y position to the appropriate scale ratio.
+- Multiple playspaces :: Move sprite from one space elem to another and shift $track.
+- Continuous load spaces :: Find way to add / remove spaces from the current playspace behind the scenes (+/- ~1-2).
+  </pre>
+  <hr />
+
+  <h2>
+  	Interaction Types
+  </h2>
+  <pre>
+- Dialogue state :: The state of the object in which a conversation is the action.
+- Conversation engine :: Object state based options in their dialogue state, ie., (if states === $a[1,2] { options $1[state=1],$2[state=2],$3[state=1],$4[state=2] }) || (if state === $a[1] { options $1[state=1],$3[state=1]; })
+- Event chain :: A method to print out a series of turns to objects within the play space.
+- Inanimate MOB
+- Mob generating Mob
+- Scared NPC turn check :: Some mobs will check for the existence of other types of mobs before changing their state 
+- Tiring engine :: Basic actions, like movement, wear out your rested state. Log scale, linear chunked recovery. Rested = 75%, Tired = 25%, Exhausted = 12.5%
+- Provide cover :: Objects can provide an additional layer of temporary defense. Destructable
 
   </pre>
+  <hr />
+  
+  <pre>
+- Generate bg methods
+- Parallax BG
+- Head Bubbles
+- UI: HUD
+- UI: Watch
+- UI: Station
+---
+- Tintable street / bg art (for environmental effects) :: Alpha transparency either in css or within images themselves will be helpful in providing altered spaces and lighting.
+- Wind value : $thatWind is a mutable value that effect the speed of various animations / effects. At low speeds it affects just the clouds and rain. At mid speeds it can blow away effects. At high speeds it will push human-sized objects.
+- Cloud animations :: Mod-able looping animations that push based on $thatWind.
+- Exterior shot generator
+- Zoom space
+- Skew street
+- Time of Day / Sunset
+- Weather
+- Light rays :: Shifting blurry lines of light rip through the cloud layers, shifting in and out of existence. CSS rule library.
+- Flashback 
+- Cut Scene :: Category :: 
+  </pre>
+
+  <hr />
+  <h2>
+  	VIZ
+  </h2>
+  <pre>
+- Quartz
+- Empty buildings
+- Static sky
+- Stars
+- Thin fields / gradients 
+
+  </ore>
+  <hr />
+
 
 </body>
 </html>
