@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+* 
+	{
+		margin:0;
+		padding:0;
+		-moz-user-select: -moz-none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;
+	}
+body 
+	{
+		background-color:black;
+	}
+.mob 
+	{
+		position:absolute;
+		/*left:50%;
+		top:50%;*/
+		left:25px;
+		top:25px;
+		
+		margin-left:-50px;
+		margin-top:-50px;
+		width:50px;
+		height:50px;
+		margin-right:1px;
+		margin-bottom:1px;
+		background-color:gray;
+		border:1px solid white;
+		/*box-shadow:0 0 0 1px white;*/
+		cursor:pointer;
+		-webkit-transform : translateZ(0); 
+		-o-transform : translateZ(0); 
+		-moz-transform : translateZ(0); 
+		transform : translateZ(0); 
+	}
+.mob.blue 
+	{
+		background-color:rgb(100,255,100);
+	}
+.fresh
+	{
+		background-color:orange;
+	}
+#ui 
+	{
+		position:absolute;
+		width:50px;
+		height:50px;
+		top:0;
+		right:0;
+		background:lime;
+		cursor:pointer;
+	}
+#player 
+	{
+		background-color:#ccc;
+	}
+	</style>
+
+</head>
+<body>
+
+<div id="ui">
+	!
+</div>
+<div id="player">
+	<div id="mobs">
+	</div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="jquery.transit.min.js"></script>
+
+<script>
+
+
+(function(){
+	var allMobs = new Array();
+	var windowHeight = $(window).height() * 0.5;
+	var windowWidth = $(window).width();
+
+	function mob(unique,genus,species,state,values) {
+		this.unique = unique;
+		this.genus = genus;
+		this.species = species;
+		this.state = state;
+		this.values = values;
+		var thisElem;
+		var elemSelector;
+
+
+		this.genus = makeMobGenus();
+		this.values = makeMobValues();
+
+		/* METHODS : INTERNAL */
+		function makeMob() {
+		}
+		function makeMobGenus() { 
+			if (Math.random() > 0.5) {
+				text = 'big';
+			} else {
+				text = 'small';
+			}
+			return text;
+		}
+		function makeMobValues() { 
+			if (Math.random() > 0.5) {
+				test = new Array(Math.random(),1);
+			} else {
+				test = 'small';
+			}
+			return test;
+		}
+		/* METHODS : EXPOSED */
+
+		this.touch = function touch(x,y) {
+			if (x === 'soft') {
+				this.state = 'untouched';
+				this.values[0] = y;
+				// console.log(this.values[0]);
+			} else {
+				this.state = 'touched';
+			}
+			touchMob('black');
+			// addMobClass('asdf');
+			// selectMob().css('background-color','blue');
+		}
+		this.changePosition = function changePosition(x,y) {
+			this.posLeft = x;
+			this.posTop = y;
+			thisElem.stop().transition({
+				'x':this.posLeft,
+				'y':this.posTop,
+				'scale':Math.floor(this.posTop / 5) / 100,
+			});
+		}
+		this.changeState = function changeState(newState) {
+			this.state = stateChange;
+		}
+		this.changeLeft = function changeLeft(newLeft) {
+			this.posLeft = newLeft;
+			// thisElem.attr('data-left',newLeft);
+		}
+		this.changeTop = function changeTop(newTop) {
+			this.posTop = newTop;
+			// thisElem.attr('data-left',newLeft);
+		}
+
+
+		/* METHODS : ELEMENT */
+
+		function makeMobElement() {
+			makeMob();
+			var mobMarkup = '<div id="mob-' + unique + '" class="mob fresh"></div>';
+			$('#mobs').append(mobMarkup);
+			// thisElem = $('.mob').eq(unique);
+			thisElem = $('#mob-' + unique);
+
+			// thisElem.attr('data-mob-id',unique);
+			bindMob(thisElem);
+		}
+		function bindMob(thisElem) {
+			thisElem.bind({
+				click: function(e) { 
+					thisElem.css('background-color','red');
+					setTimeout(function() {
+						thisElem.remove();
+					},5000);
+				}
+			}).removeClass('fresh');
+			// setTimeout(function() {
+				thisElem.addClass('blue');
+			// }, 1000);
+		}
+		function selectMob() {
+			return thisElem;
+		}
+		function touchMob(color) {
+			/* this === window */ 
+			// console.log(thisElem);
+			thisElem.css('background-color',color);
+		}
+		function addMobClass(x) {
+			thisElem.addClass(x);
+		}
+		makeMobElement();
+
+	}
+
+	/* CREATE SOME MOBS */
+
+	// var currentMob;
+	for (var mobCount = 0; mobCount < 25; mobCount++) {
+		allMobs[mobCount] = new mob(mobCount);
+	}
+
+	/* TEST MOBS TOUCH */
+
+	clickCount = 0;
+	$('#ui').click(function() {
+		clickCounter();
+	});
+	function clickCounter() {
+		allMobs[allMobs.length] = new mob(allMobs.length);
+		var thisMob = allMobs[clickCount];
+		thisMob.touch('soft',Math.random());
+		// var tempObj = allMobs[1];
+		// tempObj.touch();
+		clickCount++;
+		if (clickCount >= allMobs.length) {
+			clickCount = 0;
+		}
+	}
+
+var mobCount = 0;
+(function timerMobs(){
+   if (mobCount < allMobs.length) {
+		var thisMob = allMobs[mobCount];
+		thisMob.changePosition(parseInt(windowWidth * Math.random()),parseInt(windowHeight * Math.random()));
+		mobCount++;
+   } else {
+		mobCount = 0
+   }
+   // var timingLength = allMobs.length * 0.1;
+   // console.log(timingLength);
+   setTimeout(timerMobs, allMobs.length);
+
+})()
+
+
+}());
+
+
+$(document).ready(function() {
+});
+
+</script>
+</body>
+</html>
