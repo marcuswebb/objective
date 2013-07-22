@@ -7,15 +7,22 @@
 		margin:0;
 		padding:0;
 	}
-#player
+*:focus 
 	{
-		-moz-user-select: -moz-none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;
+		outline: none;
+		background-color: red;
 	}
 body 
 	{
+		overflow: hidden;
 		background-color:black;
 		background-image: url(pt_desert.gif);
-		overflow: hidden;
+		font-family: 
+	}
+
+#player
+	{
+		-moz-user-select: -moz-none;-khtml-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;
 	}
 .mob 
 	{
@@ -81,6 +88,16 @@ body
 		right:0;
 		background:lime;
 		cursor:pointer;
+		border-radius: 50% 50%;
+		text-align: center;
+	}
+#ui, 
+#submit 
+	{
+		color: white;
+		font-size: 22px;
+		line-height: 25px;
+		font-weight: bold;
 	}
 #player 
 	{
@@ -159,13 +176,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#526d7878', e
 		right: 0;
 		bottom: 0;
 		padding: 10px;
-		background-color: #eee;
-		border-color: #ccc;
+		background-color: #ccc;
+		border-color: #bbb;
 		border-width: 2px;
 	}
 #msgr:focus	
 	{
 		outline: none;
+		background-color: #eee;
 		border-color: black;
 	}
 #submit
@@ -180,10 +198,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#526d7878', e
 		border: none;
 		border-radius: 0;
 		background-color: gray;
-		color: white;
-		font-size: 22px;
-		line-height: 25px;
-		font-weight: bold;
 	}
 #submit:active,
 #submit:focus 
@@ -283,6 +297,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#526d7878', e
 			// }
 			// touchMob('black');
 			// addMobClass('asdf');
+			this.state('dead');
 			selectMob().click();
 		}
 		this.changePosition = function changePosition(x,y) {
@@ -323,7 +338,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#526d7878', e
 
 		function makeMobElement() {
 			makeMob();
-			var mobMarkup = '<div id="mob-' + unique + '" class="mob fresh"></div>';
+			var mobMarkup = '<div tabindex="' + unique + '" id="mob-' + unique + '" class="mob fresh"></div>';
 			$('#mobs').append(mobMarkup);
 			// thisElem = $('.mob').eq(unique);
 			thisElem = $('#mob-' + unique);
@@ -341,7 +356,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#526d7878', e
 				}
 			}).removeClass('fresh');
 			// setTimeout(function() {
-				thisElem.addClass('blue');
+				// thisElem.addClass('blue');
 			// }, 1000);
 		}
 		function selectMob() {
@@ -421,7 +436,7 @@ $(document).ready(function() {
 		}, 100);
 		var msg = $('#msgr').val();
 		$('#msgr').val('')
-		conLog('||: ' + cutHyphen(1,msg).trim() + ': ' + cutHyphen(2,msg).trim());
+		conLog('][ ' + cutHyphen(1,msg).trim() + ' ' + cutHyphen(2,msg).trim());
 		if (msg.substr(0,1) === '-') {
 			switch(cutHyphen(1,msg).trim()) 
 				{
@@ -448,7 +463,7 @@ function conLog(str) {
 }
 
 function cutHyphen(x,str) {
-	str = str + ' -!:';
+	str = str + ' -;';
 	var s = new Array();
 	var s = str.split('-');
 	return s[x];
